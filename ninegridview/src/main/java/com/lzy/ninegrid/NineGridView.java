@@ -3,13 +3,14 @@ package com.lzy.ninegrid;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +96,10 @@ public class NineGridView extends ViewGroup {
         int childrenCount = mImageInfo.size();
         for (int i = 0; i < childrenCount; i++) {
             ImageView childrenView = (ImageView) getChildAt(i);
-            if (mImageLoader != null) {
-                mImageLoader.onDisplayImage(getContext(), childrenView, mImageInfo.get(i).thumbnailUrl);
+            if(childrenView.getDrawable() == null) {
+                if (mImageLoader != null) {
+                    mImageLoader.onDisplayImage(getContext(), childrenView, mImageInfo.get(i).thumbnailUrl);
+                }
             }
             int rowNum = i / columnCount;
             int columnNum = i % columnCount;
